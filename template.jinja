@@ -1,0 +1,162 @@
+#generated
+
+Упрощённый план создания {{d.group}}-{{d.example}}
+
+Крупный план
+
+Создать проект
+Подготовка ассетов
+Добавление библиотеки
+Создать файл /assets/images/kenney.atlas
+Создать файл /assets/fonts/game.font
+Создать файл /main/custom.display_profiles
+Создать файл /main/{{d.example}}.gui
+Создать файл /main/{{d.example}}.gui_script
+{% for template in d.child_templates -%}
+Создать файл {{template}}
+{% if d.child_templates[template].script -%}
+Создать файл {{d.child_templates[template].script}}
+{% endif -%}
+{% endfor -%}
+Поправить файл /main/main.collection
+
+
+
+Создать проект
+
+Удалить папку C:/Coding/druid-{{d.group}}-{{d.example}}
+Создать проект типа Mobile Game в папке C:/Coding с названием druid-{{d.group}}-{{d.example}}
+
+
+Подготовка ассетов
+
+Скопировать файл exo2.ttf в папку /assets/fonts
+Скопировать файл button_blue.png в папку /assets/images/buttons
+Скопировать файл button_green.png в папку /assets/images/buttons
+Скопировать файл button_red.png в папку /assets/images/buttons
+Скопировать файл button_yellow.png в папку /assets/images/buttons
+Скопировать файл slider_move.png в папку /assets/images/sliders
+Скопировать файл empty.png в папку /assets/images
+
+
+Подготовка проекта
+
+В разделе Main-Project добавить https://github.com/Insality/druid/archive/master.zip в Dependences
+Перезапустить проект
+В разделе Runtime-Display установить Width в 600
+В разделе Runtime-Display установить Height в 900
+В разделе Runtime-Display установить High Dpi в true
+В разделе Runtime-Display установить Display Profiles в /example/custom.display_profiles
+В разделе Runtime-Display установить Dynamic Orientation в true
+
+
+Создать файл /assets/images/kenney.atlas
+
+Добавить файл /assets/images/buttons/button_blue.png в атлас
+Добавить файл /assets/images/buttons/button_green.png в атлас
+Добавить файл /assets/images/buttons/button_red.png в атлас
+Добавить файл /assets/images/buttons/button_yellow.png в атлас
+Добавить файл /assets/images/sliders/slider_move.png в атлас
+Добавить файл /assets/images/empty.png в атлас
+
+
+Создать файл /assets/fonts/game.font
+
+  Установить параметр Font в /example/assets/fonts/exo2.ttf
+  Установить параметр Material в /builtins/fonts/font-df.material
+  Установить параметр Output Format в Distance Field
+  Установить параметр Render Mode в Multi Layer
+  Установить параметр Size в 40
+  Установить параметр Antialias в true
+  Установить параметр Alpha в 1
+  Установить параметр Outline Alpha в 1
+  Установить параметр Outline Width в 2
+  Установить параметр Shadow Alpha в 1
+  Установить параметр Shadow Blur в 0
+  Установить параметр Shadow X в 3
+  Установить параметр Shadow Y в -4
+  Установить параметр Extra Characters в N%;
+  Установить параметр All Chars в true
+  Установить параметр Cache Width в 0
+  Установить параметр Cache Height в 0
+
+
+Создать файл /main/custom.display_profiles
+
+Добавить Profile Landscape с параметрами Width 900 и Height 600
+Добавить Profile Portrait с параметрами Width 600 и Height 900
+
+
+Создать файл /main/{{d.example}}.gui
+
+Добавить файл /example/assets/images/kenney.atlas в раздел Textures c Name = kenney
+Добавить файл /example/assets/fonts/game.font в раздел Fonts c Name = game
+Добавить image в раздел Layers
+Добавить text в раздел Layers
+
+Создать структуру:
+
+{{d.structure}}
+
+Задать параметры
+{% for element in d.elements %}
+Для элемента {{element}}{% for parameter in d.elements[element] %}
+  {{parameter}}: {{d.elements[element][parameter]-}}
+{% endfor %}
+{% endfor %}
+
+
+Создать файл /main/{{d.example}}.gui_script
+
+Добавить код:
+
+```
+{{d.gui_script_body}}
+```
+
+
+
+{% for template in d.child_templates %}
+Создать файл {{template}}
+
+Добавить файл /example/assets/images/kenney.atlas в раздел Textures c Name = kenney
+Добавить файл /example/assets/fonts/game.font в раздел Fonts c Name = game
+Добавить image в раздел Layers
+Добавить text в раздел Layers
+
+Создать структуру:
+
+{{d.child_templates[template].structure}}
+
+Задать параметры
+{% for element in d.child_templates[template].elements %}
+Для элемента {{element}}{% for parameter in d.child_templates[template].elements[element] %}
+  {{parameter}}: {{d.child_templates[template].elements[element][parameter]-}}
+{% endfor %}
+{% endfor %}
+
+
+{% if d.child_templates[template].script %}
+
+Создать файл {{d.child_templates[template].script}}
+
+Добавить код:
+
+```
+{{d.child_templates[template].gui_script_body}}
+```
+{% endif %}
+{% endfor %}
+
+
+Добавить /main/{{d.example}}.gui_script к /main/{{d.example}}.gui
+
+
+
+Поправить файл /main/main.collection
+
+Добавить {{d.example}}.gui к объекту go
+Убрать у go спрайт background
+Убрать у go спрайт logo
+Установить position 0 0 0 у go
+Почистить on_input в /main/main.script
